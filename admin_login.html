@@ -1,0 +1,28 @@
+{% load static %}
+{% block body %}
+{% include 'nav.html' %}
+<p STYLE="text-align:center;font-size:25px;color:blue; background-color:black;margin-top:1%;font-weight:10"> ADMIN PORTAL</p><hr>
+<form class="container mt-5" method="post">
+    {% csrf_token %}
+    <label><b>USERNAME</b></label>
+    <input type="text" class="form-control" name="uname" placeholder="Enter Username">
+    <br>
+    <label><b>PASSWORD</b></label>
+    <input type="password" class="form-control" name="pwd" placeholder="Enter Password">
+    <input type="submit" value="login" class="btn btn-primary" style="margin-top:2%;color:darkcyan;background-color:black; font-weight:bold">
+</form>
+{% include 'footer.html' %}
+
+{% ifequal error "no" %}
+<script>
+    alert("Login Successful");
+    window.location= ('{% url 'admin_home' %}')
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Invelid Login Credentials, Try Again...");
+</script>
+{% endifequal %}
+{% endblock %}

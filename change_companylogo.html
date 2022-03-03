@@ -1,0 +1,43 @@
+{% load static %}
+{% block body %}
+{% include 'recruiter_navigation.html' %}
+
+<p STYLE="text-align:center;font-size:25px;color:blue; background-color:black;margin-top:1%;font-weight:10">CHANGE COMPANY LOGO</p><hr>
+<form class="container mt-5"  name="signup" method="post" ENCTYPE="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label> Job Title </label>
+                <input type="text" class="form-control" readonly name="jobtitle" value="{{job.title}}" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <img src="{{job.image.url}}" width="120" hight="100">
+            </div>
+        </div>   
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Company Logo</label>
+                <input type="file" class="form-control" name="logo" required>
+            </div>
+        </div>
+        <input type="Submit" value="change" class="btn btn-primary" style="width:100px">
+
+</form>
+
+{% ifequal error "no" %}
+<script>
+    alert("Company logo has been Updated ");
+    window.location = ('{% url 'change_companylogo' job.id %}')
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Something went wrong, Try Again...");
+</script>
+{% endifequal %}
+
+{% endblock %}
